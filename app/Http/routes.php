@@ -1,6 +1,8 @@
 <?php
 
 Route::group(['middleware' => 'web'], function() {
+
+    Route::get('test', 'TestController@index');
     /**
      * Switch between the included languages
      */

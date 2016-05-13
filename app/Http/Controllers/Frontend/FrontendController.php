@@ -15,7 +15,7 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        var_dump(Auth::user()->id);
+        //var_dump(Auth::user()->id);
         javascript()->put([
             'test' => 'it works!',
         ]);

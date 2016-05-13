@@ -29,6 +29,13 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Frontend\Auth\UserRegistered::class => [
             \App\Listeners\Frontend\Auth\UserRegisteredListener::class,
         ],
+
+        /*
+        * Custom events
+        */
+        \App\Events\Module\PostRegistrationEvent::class  => [
+            \App\Listeners\Module\PostRegistrationListener::class,
+        ],
     ];
 
     /**
