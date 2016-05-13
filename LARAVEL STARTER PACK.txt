@@ -1,0 +1,3 @@
+https://github.com/rappasoft/laravel-5-boilerplate
+https://github.com/pepijnolivier/Eloquent-Model-Generator
+https://github.com/appzcoder/crud-generator
