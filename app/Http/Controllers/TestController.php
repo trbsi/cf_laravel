@@ -61,6 +61,7 @@ class TestController extends Controller
 		        // note: defaulting to first account found, user might be a 
 		        // member of multiple accounts
 		        $loginAccount = $loginInformation->getLoginAccounts()[0];
+		        $baseUrl=$loginAccount->getBaseUrl();
 		        if(isset($loginInformation))
 		        {
 		            $accountId = $loginAccount->getAccountId();
