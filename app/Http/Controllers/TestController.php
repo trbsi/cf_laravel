@@ -62,6 +62,7 @@ class TestController extends Controller
 		        // member of multiple accounts
 		        $loginAccount = $loginInformation->getLoginAccounts()[0];
 		        $baseUrl=$loginAccount->getBaseUrl();
+		        //echo $baseUrl."<br>";
 		        if(isset($loginInformation))
 		        {
 		            $accountId = $loginAccount->getAccountId();
@@ -75,17 +76,28 @@ class TestController extends Controller
 			$testConfig=new \DocuSign\eSign\ApiClient($config);
 		    $envelopeApi = new \DocuSign\eSign\Api\EnvelopesApi($testConfig);
 			$docsList = $envelopeApi->listDocuments($accountId, "acdf93aa-f1f1-4ba0-a6f6-8883c6d20251");
-			//var_dump($docsList->getUrl()); 
-			//$this->assertNotEmpty($docsList);
-			//$this->assertNotEmpty($docsList->getEnvelopeId());
-			$docCount = count($docsList->getEnvelopeDocuments()); 
+			//var_dump($docsList->getUrl());
+
+			$docCount = count($docsList->getEnvelopeDocuments());
 			if (intval($docCount) > 0)
-			{
+			{	
+				error_reporting(0);
 				foreach($docsList->getEnvelopeDocuments() as $document)
 				{
-					print_r($document);
-					//$file = $envelopeApi->getDocument($testConfig->getAccountId(), $testConfig->getEnvelopeId(), $document->getDocumentId());
-					//$this->assertNotEmpty($file);
+					//print("<pre>".print_r($document, true)."</pre>");
+
+					$file=$envelopeApi->getDocument($accountId, "acdf93aa-f1f1-4ba0-a6f6-8883c6d20251", $document->getDocumentId());
+
+					var_dump($file->getPath()."\".$file->getFilename());
+					/*
+					header("Content-type:application/pdf");
+
+					// It will be called downloaded.pdf
+					header("Content-Disposition:attachment;filename='$file->fileName'");
+
+					// The PDF source is in original.pdf
+					readfile("$file->fileName.pdf");*/
+
 				}
 			}
 
