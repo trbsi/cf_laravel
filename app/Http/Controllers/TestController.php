@@ -75,7 +75,7 @@ class TestController extends Controller
 
 			$testConfig=new \DocuSign\eSign\ApiClient($config);
 		    $envelopeApi = new \DocuSign\eSign\Api\EnvelopesApi($testConfig);
-			$docsList = $envelopeApi->listDocuments($accountId, "acdf93aa-f1f1-4ba0-a6f6-8883c6d20251");
+			$docsList = $envelopeApi->listDocuments($accountId, "972f7105-6dc5-4c32-baaf-272aae6e7766");
 			//var_dump($docsList->getUrl());
 
 			$docCount = count($docsList->getEnvelopeDocuments());
@@ -85,23 +85,20 @@ class TestController extends Controller
 				foreach($docsList->getEnvelopeDocuments() as $document)
 				{
 					//print("<pre>".print_r($document, true)."</pre>");
+					$documentName=$document->getName();
+					$file=$envelopeApi->getDocument($accountId, "972f7105-6dc5-4c32-baaf-272aae6e7766", $document->getDocumentId());
 
-					$file=$envelopeApi->getDocument($accountId, "acdf93aa-f1f1-4ba0-a6f6-8883c6d20251", $document->getDocumentId());
+					$file=$file->getPath()."\\".$file->getFilename();
+					$file=file_get_contents($file);
+					$filename=$documentName;
+					if($filename=="Summary")
+						$filename=$filename."_".mt_rand().".pdf";
+					file_put_contents($filename, $file);
 
-					var_dump($file->getPath()."\".$file->getFilename());
-					/*
-					header("Content-type:application/pdf");
-
-					// It will be called downloaded.pdf
-					header("Content-Disposition:attachment;filename='$file->fileName'");
-
-					// The PDF source is in original.pdf
-					readfile("$file->fileName.pdf");*/
 
 				}
 			}
-
-		return;
+			return;
 
 		    /////////////////////////////////////////////////////////////////////////
 		    // STEP 2:  Create & Send Envelope with Embedded Recipient
